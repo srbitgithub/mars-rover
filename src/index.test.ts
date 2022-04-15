@@ -85,4 +85,11 @@ describe("Mars Rover", () => {
     expect(marsRover.result).toEqual(expected);
   })
 
+  it("When the move command is M and orientation is E MarsRover advances one by M in positive axis X", () => {
+    const expected = "3,2,E";
+    const marsRover = new MarsRover("1,2,E", "MM");
+    expect(marsRover.result).toEqual(expected);
+  })
+
+
 })
