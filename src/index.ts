@@ -21,7 +21,7 @@ export class MarsRover {
   main (){
     var commandMovementArray:string[]
     if(this.commandMovement === "") this.result = this.landingCoords
-    if (this.commandMovement === "MMM") 
+    if (this.commandMovement != "") 
     {
       commandMovementArray = this.convertStringToArray(this.commandMovement)
       commandMovementArray.forEach(item => {
@@ -47,9 +47,24 @@ export class MarsRover {
   convertStringToArrayByComas(stringToConvert:string):string[]{
     return stringToConvert.split(',')
   }
-  
+
   updateLocation(item:string){
-    if(item === 'M') this.currentPosition.y++
+    if (item === 'R' || item === 'L') this.updateDirection(item)
+    if (this.currentPosition.direction === 'N' && item ==='M') this.advanceOneNorthDireccion()
+  }
+
+  updateNorthDirection(item:string){
+    if (item === 'R') this.currentPosition.direction = 'E'
+    else this.currentPosition.direction = 'W'
+  }
+
+
+  updateDirection(item:string){
+    if (this.currentPosition.direction === "N") this.updateNorthDirection(item)
+  }
+
+  advanceOneNorthDireccion(){
+    this.currentPosition.y++
   }
   
   updateResult(){

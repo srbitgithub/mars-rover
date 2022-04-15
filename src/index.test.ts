@@ -13,4 +13,24 @@ describe("Mars Rover", () => {
     expect(marsRover.result).toEqual(expected);
   })
 
+  it("When the move command R MarsRover changes it orientation one for each M on the positive Y axis", () => {
+    const expected = "1,4,N";
+    const marsRover = new MarsRover("1,2,N", "MM");
+    expect(marsRover.result).toEqual(expected);
+  })
+
+  it("When the move command is R MarsRover changes its orientation", () => {
+    const expected = "1,2,E";
+    const marsRover = new MarsRover("1,2,N", "R");
+    expect(marsRover.result).toEqual(expected);
+  })
+
+  it("When the move command is L MarsRover changes its orientation", () => {
+    const expected = "1,2,W";
+    const marsRover = new MarsRover("1,2,N", "L");
+    expect(marsRover.result).toEqual(expected);
+  })
+
+
+
 })
