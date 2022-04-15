@@ -123,23 +123,25 @@ export class MarsRover {
   }
 
   advanceOneNorthDireccion(){
-    this.currentPosition.y++
-    if (this.currentPosition.y > this.WORLD_MAX_LIMIT) this.currentPosition.y = this.WORLD_MIN_LIMIT
+    this.currentPosition.y = this.clampNumber(this.currentPosition.y + 1)
   }
 
   advanceOneSouthDireccion(){
-    this.currentPosition.y--
-    if (this.currentPosition. y < this.WORLD_MIN_LIMIT) this.currentPosition.y = this.WORLD_MAX_LIMIT
+    this.currentPosition.y = this.clampNumber(this.currentPosition.y - 1)
   }
 
   advanceOneEastDireccion(){
-    this.currentPosition.x++
-    if (this.currentPosition.x > this.WORLD_MAX_LIMIT) this.currentPosition.x = this.WORLD_MIN_LIMIT
+    this.currentPosition.x = this.clampNumber(this.currentPosition.x + 1)
   }
 
   advanceOneWestDireccion(){
-    this.currentPosition.x--
-    if (this.currentPosition.x < this.WORLD_MIN_LIMIT) this.currentPosition.x = this.WORLD_MAX_LIMIT
+    this.currentPosition.x = this.clampNumber(this.currentPosition.x - 1)
+  }
+
+  clampNumber(value:number){
+    if (value < this.WORLD_MIN_LIMIT) return this.WORLD_MAX_LIMIT
+    if (value > this.WORLD_MAX_LIMIT) return this.WORLD_MIN_LIMIT
+    return value
   }
 
   updateResult(){
