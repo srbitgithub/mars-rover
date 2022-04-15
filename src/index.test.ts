@@ -19,29 +19,40 @@ describe("Mars Rover", () => {
     expect(marsRover.result).toEqual(expected);
   })
 
-  it("When the move command is R MarsRover changes its orientation", () => {
+  it("When the move command is R MarsRover changes its orientation when is N", () => {
     const expected = "1,2,E";
     const marsRover = new MarsRover("1,2,N", "R");
     expect(marsRover.result).toEqual(expected);
   })
 
-  it("When the move command is L MarsRover changes its orientation", () => {
+  it("When the move command is L MarsRover changes its orientation when is N", () => {
     const expected = "1,2,W";
     const marsRover = new MarsRover("1,2,N", "L");
     expect(marsRover.result).toEqual(expected);
   })
 
-  it("When the move command is R MarsRover changes its orientation", () => {
+  it("When the move command is R MarsRover changes its orientation when is E", () => {
     const expected = "1,2,S";
     const marsRover = new MarsRover("1,2,E", "R");
     expect(marsRover.result).toEqual(expected);
   })
 
-  it("When the move command is L MarsRover changes its orientation", () => {
+  it("When the move command is L MarsRover changes its orientation when is E", () => {
     const expected = "1,2,N";
     const marsRover = new MarsRover("1,2,E", "L");
     expect(marsRover.result).toEqual(expected);
   })
 
+  it("When the move command is R MarsRover changes its orientation when is S", () => {
+    const expected = "1,2,W";
+    const marsRover = new MarsRover("1,2,S", "R");
+    expect(marsRover.result).toEqual(expected);
+  })
+
+  it("When the move command is L MarsRover changes its orientation when is S", () => {
+    const expected = "1,2,E";
+    const marsRover = new MarsRover("1,2,S", "L");
+    expect(marsRover.result).toEqual(expected);
+  })
 
 })

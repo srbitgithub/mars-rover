@@ -58,6 +58,11 @@ export class MarsRover {
     else this.currentPosition.direction = 'W'
   }
 
+  updateSouthDirection(item:string){
+    if (item === 'R') this.currentPosition.direction = 'W'
+    else this.currentPosition.direction = 'E'
+  }
+
   updateEastDirection(item:string){
     if (item === 'R') this.currentPosition.direction = 'S'
     else this.currentPosition.direction = 'N'
@@ -74,7 +79,11 @@ export class MarsRover {
       this.updateEastDirection(item)
       return
     }
-
+    if (this.currentPosition.direction === "S")
+    {
+      this.updateSouthDirection(item)
+      return
+    }
   }
 
   advanceOneNorthDireccion(){
