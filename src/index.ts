@@ -105,10 +105,12 @@ export class MarsRover {
 
   advanceOneNorthDireccion(){
     this.currentPosition.y++
+    if (this.currentPosition.y > 5) this.currentPosition.y = 1
   }
 
   advanceOneSouthDireccion(){
     this.currentPosition.y--
+    if (this.currentPosition. y < 1) this.currentPosition.y = 5
   }
 
   advanceOneEastDireccion(){
@@ -118,7 +120,6 @@ export class MarsRover {
 
   advanceOneWestDireccion(){
     this.currentPosition.x--
-    console.log("X: " + this.currentPosition.x)
     if (this.currentPosition.x < 1) this.currentPosition.x = 5
   }
 
