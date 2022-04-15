@@ -4,11 +4,17 @@ type Coordinates = {
   direction: string
 }
 
+type WorldCoordinates = {
+  x: number,
+  y: number,
+}
+
 export class MarsRover {
   landingCoords:string = ""
   commandMovement:string = ""
   result:string = ""
   currentPosition:Coordinates = {x:0,y:0,direction:"N"}
+  worldLimits:WorldCoordinates = {x:5,y:5}
 
   constructor(_landingCoords:string, _commandMovement:string){
     this.landingCoords = _landingCoords
@@ -107,10 +113,13 @@ export class MarsRover {
 
   advanceOneEastDireccion(){
     this.currentPosition.x++
+    if (this.currentPosition.x > 5) this.currentPosition.x = 1
   }
 
   advanceOneWestDireccion(){
     this.currentPosition.x--
+    console.log("X: " + this.currentPosition.x)
+    if (this.currentPosition.x < 1) this.currentPosition.x = 5
   }
 
   updateResult(){

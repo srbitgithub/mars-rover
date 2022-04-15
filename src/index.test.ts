@@ -98,8 +98,8 @@ describe("Mars Rover", () => {
   })
 
   it("First complex movement", () => {
-    const expected = "0,0,S";
-    const marsRover = new MarsRover("2,2,N", "MMLMMLMMMM");
+    const expected = "1,1,S";
+    const marsRover = new MarsRover("3,3,N", "MMLMMLMMMM");
     expect(marsRover.result).toEqual(expected);
   })
 
@@ -108,5 +108,18 @@ describe("Mars Rover", () => {
     const marsRover = new MarsRover("1,1,N", "MMRMLMRMRMLMRMMRMMM");
     expect(marsRover.result).toEqual(expected);
   })
+
+  it("When is orientation is E and MarsRover arrives to the maximum world limit appears in opposit worl position", () => {
+    const expected = "1,1,E";
+    const marsRover = new MarsRover("1,1,E", "MMMMM");
+    expect(marsRover.result).toEqual(expected);
+  })
+
+  it("When is orientation is W and MarsRover arrives to the minimum world limit appears in opposit worl position", () => {
+    const expected = "5,1,W";
+    const marsRover = new MarsRover("3,1,W", "MMM");
+    expect(marsRover.result).toEqual(expected);
+  })
+
 
 })
