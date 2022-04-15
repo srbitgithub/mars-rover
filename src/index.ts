@@ -10,11 +10,23 @@ type WorldCoordinates = {
 }
 
 export class MarsRover {
-  landingCoords:string = ""
-  commandMovement:string = ""
-  result:string = ""
-  currentPosition:Coordinates = {x:0,y:0,direction:"N"}
+  NORTH:string = 'N'
+  SOUTH:string = 'S'
+  EAST:string = 'E'
+  WEST:string = 'W'
+  ROTATION_RIGHT:string = 'R'
+  ROTATION_LEFT:string = 'L'
+  MARS_ROVER_ADVANCE = 'M'
+
+  landingCoords:string = ''
+  commandMovement:string = ''
+  result:string = ''
+  currentPosition:Coordinates = {x:0,y:0,direction:this.NORTH}
   worldLimits:WorldCoordinates = {x:5,y:5}
+  currentCommand:string = ''
+
+  WORLD_MIN_LIMIT:number = 1
+  WORLD_MAX_LIMIT:number = this.worldLimits.x
 
   constructor(_landingCoords:string, _commandMovement:string){
     this.landingCoords = _landingCoords
@@ -25,16 +37,18 @@ export class MarsRover {
   }
 
   main (){
+    if(this.commandMovement === '') this.result = this.landingCoords
+    else this.checkCommand()
+  }
+
+  checkCommand(){
     var commandMovementArray:string[]
-    if(this.commandMovement === "") this.result = this.landingCoords
-    if (this.commandMovement != "") 
-    {
-      commandMovementArray = this.convertStringToArray(this.commandMovement)
-      commandMovementArray.forEach(item => {
-        this.updateLocation(item)
-      });
-      this.updateResult()
-    }
+    commandMovementArray = this.convertStringToArray(this.commandMovement)
+    commandMovementArray.forEach(item => {
+      this.currentCommand = item
+      this.updateLocation()
+    });
+    this.updateResult()
   }
 
   initialCoords(){
@@ -53,74 +67,79 @@ export class MarsRover {
     return stringToConvert.split(',')
   }
 
-  updateLocation(item:string){
-    if (item === 'R' || item === 'L') this.updateDirection(item)
-    if (this.currentPosition.direction === 'N' && item ==='M') this.advanceOneNorthDireccion()
-    if (this.currentPosition.direction === 'S' && item ==='M') this.advanceOneSouthDireccion()
-    if (this.currentPosition.direction === 'E' && item ==='M') this.advanceOneEastDireccion()
-    if (this.currentPosition.direction === 'W' && item ==='M') this.advanceOneWestDireccion()
+  updateLocation(){
+    if (this.currentCommand === this.MARS_ROVER_ADVANCE) this.selectDirectionToAdvance()
+    else this.updateDirection()
   }
 
-  updateDirection(item:string){
-    if (this.currentPosition.direction === "N") 
+  updateDirection(){
+    if (this.currentPosition.direction === this.NORTH)
     {
-      this.updateNorthDirection(item)
+      this.updateNorthDirection()
+      return
+    } 
+    if (this.currentPosition.direction === this.SOUTH) 
+    {
+      this.updateSouthDirection()
       return
     }
-    if (this.currentPosition.direction === "E")
+    if (this.currentPosition.direction === this.EAST) 
     {
-      this.updateEastDirection(item)
+      this.updateEastDirection()
       return
     }
-    if (this.currentPosition.direction === "S")
+    if (this.currentPosition.direction === this.WEST) 
     {
-      this.updateSouthDirection(item)
-      return
-    }
-    if (this.currentPosition.direction === "W")
-    {
-      this.updateWestDirection(item)
+      this.updateWestDirection()
       return
     }
   }
 
-  updateNorthDirection(item:string){
-    if (item === 'R') this.currentPosition.direction = 'E'
-    else this.currentPosition.direction = 'W'
+  selectDirectionToAdvance(){
+    if (this.currentPosition.direction === this.NORTH) this.advanceOneNorthDireccion()
+    if (this.currentPosition.direction === this.SOUTH) this.advanceOneSouthDireccion()
+    if (this.currentPosition.direction === this.EAST) this.advanceOneEastDireccion()
+    if (this.currentPosition.direction === this.WEST) this.advanceOneWestDireccion()
   }
 
-  updateSouthDirection(item:string){
-    if (item === 'R') this.currentPosition.direction = 'W'
-    else this.currentPosition.direction = 'E'
+  updateNorthDirection(){
+    if (this.currentCommand === this.ROTATION_RIGHT) this.currentPosition.direction = this.EAST
+    else this.currentPosition.direction = this.WEST
   }
 
-  updateEastDirection(item:string){
-    if (item === 'R') this.currentPosition.direction = 'S'
-    else this.currentPosition.direction = 'N'
+  updateSouthDirection(){
+    if (this.currentCommand === this.ROTATION_RIGHT) this.currentPosition.direction = this.WEST
+    else this.currentPosition.direction = this.EAST
   }
-  updateWestDirection(item:string){
-    if (item === 'R') this.currentPosition.direction = 'N'
-    else this.currentPosition.direction = 'S'
+
+  updateEastDirection(){
+    if (this.currentCommand === this.ROTATION_RIGHT) this.currentPosition.direction = this.SOUTH
+    else this.currentPosition.direction = this.NORTH
+  }
+
+  updateWestDirection(){
+    if (this.currentCommand === this.ROTATION_RIGHT) this.currentPosition.direction = this.NORTH
+    else this.currentPosition.direction = this.SOUTH
   }
 
   advanceOneNorthDireccion(){
     this.currentPosition.y++
-    if (this.currentPosition.y > 5) this.currentPosition.y = 1
+    if (this.currentPosition.y > this.WORLD_MAX_LIMIT) this.currentPosition.y = this.WORLD_MIN_LIMIT
   }
 
   advanceOneSouthDireccion(){
     this.currentPosition.y--
-    if (this.currentPosition. y < 1) this.currentPosition.y = 5
+    if (this.currentPosition. y < this.WORLD_MIN_LIMIT) this.currentPosition.y = this.WORLD_MAX_LIMIT
   }
 
   advanceOneEastDireccion(){
     this.currentPosition.x++
-    if (this.currentPosition.x > 5) this.currentPosition.x = 1
+    if (this.currentPosition.x > this.WORLD_MAX_LIMIT) this.currentPosition.x = this.WORLD_MIN_LIMIT
   }
 
   advanceOneWestDireccion(){
     this.currentPosition.x--
-    if (this.currentPosition.x < 1) this.currentPosition.x = 5
+    if (this.currentPosition.x < this.WORLD_MIN_LIMIT) this.currentPosition.x = this.WORLD_MAX_LIMIT
   }
 
   updateResult(){
