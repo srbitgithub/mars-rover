@@ -97,7 +97,6 @@ export class MarsRover {
     else this.currentPosition.direction = 'S'
   }
 
-
   advanceOneNorthDireccion(){
     this.currentPosition.y++
   }

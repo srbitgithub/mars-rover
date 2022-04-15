@@ -103,9 +103,10 @@ describe("Mars Rover", () => {
     expect(marsRover.result).toEqual(expected);
   })
 
-  it("First complex movement", () => {
-    const expected = "2,2,W";
-    const marsRover = new MarsRover("2,2,N", "MMMRMMLMMRMMRMMLMMRMMMRMMMMMM");
+  it("Second complex movement", () => {
+    const expected = "1,1,W";
+    const marsRover = new MarsRover("1,1,N", "MMRMLMRMRMLMRMMRMMM");
     expect(marsRover.result).toEqual(expected);
   })
+
 })
