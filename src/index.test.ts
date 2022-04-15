@@ -55,4 +55,15 @@ describe("Mars Rover", () => {
     expect(marsRover.result).toEqual(expected);
   })
 
+  it("When the move command is R MarsRover changes its orientation when is W", () => {
+    const expected = "1,2,N";
+    const marsRover = new MarsRover("1,2,W", "R");
+    expect(marsRover.result).toEqual(expected);
+  })
+
+  it("When the move command is L MarsRover changes its orientation when is W", () => {
+    const expected = "1,2,S";
+    const marsRover = new MarsRover("1,2,W", "L");
+    expect(marsRover.result).toEqual(expected);
+  })
 })
