@@ -39,7 +39,6 @@ export class MarsRover {
     this.currentPosition.direction = stringToConvertArray[2]
   }
   
-  
   convertStringToArray(stringToConvert:string):string[]{
     return stringToConvert.split('')
   }
@@ -51,25 +50,7 @@ export class MarsRover {
   updateLocation(item:string){
     if (item === 'R' || item === 'L') this.updateDirection(item)
     if (this.currentPosition.direction === 'N' && item ==='M') this.advanceOneNorthDireccion()
-  }
-
-  updateNorthDirection(item:string){
-    if (item === 'R') this.currentPosition.direction = 'E'
-    else this.currentPosition.direction = 'W'
-  }
-
-  updateSouthDirection(item:string){
-    if (item === 'R') this.currentPosition.direction = 'W'
-    else this.currentPosition.direction = 'E'
-  }
-
-  updateEastDirection(item:string){
-    if (item === 'R') this.currentPosition.direction = 'S'
-    else this.currentPosition.direction = 'N'
-  }
-  updateWestDirection(item:string){
-    if (item === 'R') this.currentPosition.direction = 'N'
-    else this.currentPosition.direction = 'S'
+    if (this.currentPosition.direction === 'S' && item ==='M') this.advanceOneSouthDireccion()
   }
 
   updateDirection(item:string){
@@ -95,10 +76,34 @@ export class MarsRover {
     }
   }
 
+
+  updateNorthDirection(item:string){
+    if (item === 'R') this.currentPosition.direction = 'E'
+    else this.currentPosition.direction = 'W'
+  }
+
+  updateSouthDirection(item:string){
+    if (item === 'R') this.currentPosition.direction = 'W'
+    else this.currentPosition.direction = 'E'
+  }
+
+  updateEastDirection(item:string){
+    if (item === 'R') this.currentPosition.direction = 'S'
+    else this.currentPosition.direction = 'N'
+  }
+  updateWestDirection(item:string){
+    if (item === 'R') this.currentPosition.direction = 'N'
+    else this.currentPosition.direction = 'S'
+  }
+
+
   advanceOneNorthDireccion(){
     this.currentPosition.y++
   }
-  
+  advanceOneSouthDireccion(){
+    this.currentPosition.y--
+  }
+
   updateResult(){
     this.result = `${this.currentPosition.x.toString()},${this.currentPosition.y.toString()},${this.currentPosition.direction}`
   }
